@@ -15,9 +15,9 @@ const GameTile: React.FC<GameTileProps> = ({
   isCurrentGuess = false 
 }) => {
   const stateClasses = {
-    correct: 'bg-emerald-500 border-emerald-600 text-white',
-    present: 'bg-amber-400 border-amber-500 text-white',
-    absent: 'bg-slate-500 border-slate-600 text-white',
+    correct: 'bg-gradient-to-br from-emerald-400 to-emerald-600 border-emerald-600 text-white',
+    present: 'bg-gradient-to-br from-amber-400 to-amber-500 border-amber-500 text-white',
+    absent: 'bg-gradient-to-br from-slate-400 to-slate-600 border-slate-600 text-white',
     unused: 'bg-white border-slate-300 text-slate-800'
   };
   
@@ -38,11 +38,11 @@ const GameTile: React.FC<GameTileProps> = ({
     <div 
       className={`
         w-full aspect-square flex items-center justify-center 
-        text-2xl font-bold uppercase border-2 rounded
+        text-2xl font-bold uppercase border-2 rounded-lg shadow-md
         ${stateClasses[state]} 
         ${animationClass}
         ${pulseClass}
-        transform-gpu
+        transform-gpu transition-all duration-300
       `}
       style={{ animationDelay }}
     >

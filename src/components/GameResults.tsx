@@ -21,7 +21,7 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
   
   return (
     <div className="max-w-md mx-auto my-8 px-4">
-      <div className="bg-white rounded-lg shadow-lg p-8 animate-fade-in">
+      <div className="bg-gradient-to-br from-white to-slate-50 rounded-lg shadow-xl p-8 animate-fade-in">
         <div className="flex justify-center mb-6">
           {gameStatus === 'won' ? (
             <div className="animate-bounce-and-spin">
@@ -36,19 +36,19 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
           bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           {resultTitle}
         </h2>
-        <p className="text-slate-500 text-center mb-6">{creatorText}</p>
+        <p className="text-slate-500 text-center mb-8">{creatorText}</p>
         
         <div className="flex flex-col items-center justify-center space-y-2 mb-8">
-          <p className="text-slate-700 mb-2">The word was:</p>
+          <p className="text-lg text-slate-700 font-medium mb-4">The word was:</p>
           <div className="flex gap-2">
             {word.split('').map((letter, index) => (
               <div 
                 key={index}
-                className="w-12 h-12 flex items-center justify-center 
+                className="w-14 h-14 flex items-center justify-center 
                   bg-gradient-to-br from-emerald-400 to-emerald-600 
-                  text-white font-bold rounded-lg uppercase text-xl
-                  shadow-md animate-reveal"
-                style={{ animationDelay: `${index * 100}ms` }}
+                  text-white font-bold rounded-lg uppercase text-2xl
+                  shadow-lg animate-reveal transform hover:scale-105 transition-transform"
+                style={{ animationDelay: `${index * 150}ms` }}
               >
                 {letter}
               </div>
@@ -61,7 +61,7 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
             onClick={onShareClick}
             className="flex-1 flex items-center justify-center gap-2 py-3 px-6
               bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
-              text-white rounded-lg font-medium shadow-md transform hover:scale-105 transition-all"
+              text-white rounded-lg font-medium shadow-lg transform hover:scale-105 transition-all"
           >
             <ShareIcon size={20} />
             Share Result
@@ -69,8 +69,9 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
           
           <Link
             to="/"
-            className="flex-1 py-3 px-6 bg-slate-100 hover:bg-slate-200 
-              text-slate-800 rounded-lg text-center font-medium
+            className="flex-1 py-3 px-6
+              bg-gradient-to-br from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-300
+              text-slate-800 rounded-lg text-center font-medium shadow-md
               transform hover:scale-105 transition-all"
           >
             New Challenge
@@ -78,13 +79,15 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
         </div>
         
         <div className="mt-6 pt-6 border-t border-slate-200">
-          <h3 className="font-medium text-slate-800 mb-3">Your guesses:</h3>
+          <h3 className="font-medium text-slate-800 mb-4 text-lg">Your guesses:</h3>
           <div className="grid grid-cols-1 gap-2">
             {guesses.map((guess, index) => (
               <div 
                 key={index} 
-                className="text-slate-700 font-medium p-2 rounded
-                  bg-slate-50 animate-slide-in"
+                className="text-slate-700 font-medium p-3 rounded-lg
+                  bg-gradient-to-r from-slate-50 to-white
+                  shadow-sm hover:shadow-md animate-slide-in
+                  transform hover:translate-x-1 transition-all"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {index + 1}. {guess.toUpperCase()}
