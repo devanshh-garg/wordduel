@@ -16,7 +16,7 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
     : 'Better luck next time!';
   
   const creatorText = createdBy 
-    ? `Challenge by: ${createdBy}` 
+    ? `Challenge by ${createdBy}` 
     : 'Anonymous challenge';
   
   return (
@@ -36,7 +36,11 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
           bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           {resultTitle}
         </h2>
-        <p className="text-slate-500 text-center mb-8">{creatorText}</p>
+        
+        <p className="text-lg font-medium text-center mb-8 
+          bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent">
+          {creatorText}
+        </p>
         
         <div className="flex flex-col items-center justify-center space-y-2 mb-8">
           <p className="text-lg text-slate-700 font-medium mb-4">The word was:</p>

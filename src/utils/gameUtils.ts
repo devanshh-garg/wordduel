@@ -25,8 +25,8 @@ export const encodeWord = (word: string, createdBy?: string): string => {
   const wordToEncode = word.toLowerCase();
   const encoded = btoa(wordToEncode);
   
-  if (createdBy) {
-    return `${encoded}|${btoa(createdBy)}`;
+  if (createdBy && createdBy.trim()) {
+    return `${encoded}|${btoa(createdBy.trim())}`;
   }
   
   return encoded;
@@ -34,17 +34,28 @@ export const encodeWord = (word: string, createdBy?: string): string => {
 
 // Decodes the word from URL
 export const decodeWord = (encoded: string): { word: string; createdBy?: string } => {
-  if (encoded.includes('|')) {
-    const [wordEncoded, creatorEncoded] = encoded.split('|');
+  try {
+    if (encoded.includes('|')) {
+      const [wordEncoded, creatorEncoded] = encoded.split('|');
+      const decodedWord = atob(wordEncoded);
+      const decodedCreator = atob(creatorEncoded);
+      
+      return {
+        word: decodedWord,
+        createdBy: decodedCreator.trim() || undefined
+      };
+    }
+    
     return {
-      word: atob(wordEncoded),
-      createdBy: atob(creatorEncoded)
+      word: atob(encoded)
+    };
+  } catch (error) {
+    console.error('Error decoding data:', error);
+    return {
+      word: '',
+      createdBy: undefined
     };
   }
-  
-  return {
-    word: atob(encoded)
-  };
 };
 
 // Evaluates a guess against the target word
