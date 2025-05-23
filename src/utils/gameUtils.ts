@@ -26,7 +26,8 @@ export const encodeWord = (word: string, createdBy?: string): string => {
   const encoded = btoa(wordToEncode);
   
   if (createdBy && createdBy.trim()) {
-    return `${encoded}|${btoa(createdBy.trim())}`;
+    const trimmedCreator = createdBy.trim();
+    return `${encoded}|${btoa(trimmedCreator)}`;
   }
   
   return encoded;
@@ -38,11 +39,13 @@ export const decodeWord = (encoded: string): { word: string; createdBy?: string 
     if (encoded.includes('|')) {
       const [wordEncoded, creatorEncoded] = encoded.split('|');
       const decodedWord = atob(wordEncoded);
-      const decodedCreator = atob(creatorEncoded);
+      let decodedCreator = atob(creatorEncoded);
       
+      // Only return creator if it's not empty after trimming
+      decodedCreator = decodedCreator.trim();
       return {
         word: decodedWord,
-        createdBy: decodedCreator.trim() || undefined
+        createdBy: decodedCreator || undefined
       };
     }
     
@@ -51,10 +54,7 @@ export const decodeWord = (encoded: string): { word: string; createdBy?: string 
     };
   } catch (error) {
     console.error('Error decoding data:', error);
-    return {
-      word: '',
-      createdBy: undefined
-    };
+    throw new Error('Invalid challenge data');
   }
 };
 
