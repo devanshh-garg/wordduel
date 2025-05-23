@@ -21,42 +21,36 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
   
   return (
     <div className="max-w-md mx-auto my-8 px-4">
-      <div className="bg-gradient-to-br from-white to-slate-50 rounded-2xl shadow-xl p-8 animate-fade-in">
-        <div className="flex justify-center mb-8">
+      <div className="bg-gradient-to-br from-white to-slate-50 rounded-lg shadow-xl p-8 animate-fade-in">
+        <div className="flex justify-center mb-6">
           {gameStatus === 'won' ? (
-            <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-amber-400 to-amber-600 opacity-75 blur-lg rounded-full"></div>
-              <div className="relative animate-bounce-and-spin">
-                <PartyPopperIcon size={72} className="text-amber-500" />
-              </div>
+            <div className="animate-bounce-and-spin">
+              <PartyPopperIcon size={64} className="text-amber-500" />
             </div>
           ) : (
-            <FrownIcon size={72} className="text-slate-500" />
+            <FrownIcon size={64} className="text-slate-500" />
           )}
         </div>
         
         <h2 className="text-3xl font-bold text-center mb-3 
-          bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent
-          animate-fade-in">
+          bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           {resultTitle}
         </h2>
-        <p className="text-slate-500 text-center mb-8 animate-fade-in">{creatorText}</p>
+        <p className="text-slate-500 text-center mb-8">{creatorText}</p>
         
         <div className="flex flex-col items-center justify-center space-y-2 mb-8">
-          <p className="text-lg text-slate-700 font-medium mb-4 animate-fade-in">The word was:</p>
-          <div className="flex gap-3">
+          <p className="text-lg text-slate-700 font-medium mb-4">The word was:</p>
+          <div className="flex gap-2">
             {word.split('').map((letter, index) => (
               <div 
                 key={index}
-                className="w-16 h-16 flex items-center justify-center 
+                className="w-14 h-14 flex items-center justify-center 
                   bg-gradient-to-br from-emerald-400 to-emerald-600 
-                  text-white font-bold rounded-xl uppercase text-2xl
-                  shadow-lg animate-reveal transform hover:scale-110 
-                  transition-transform duration-200 relative group"
+                  text-white font-bold rounded-lg uppercase text-2xl
+                  shadow-lg animate-reveal transform hover:scale-105 transition-transform"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-emerald-600 opacity-75 blur group-hover:opacity-100 transition-opacity rounded-xl"></div>
-                <span className="relative">{letter}</span>
+                {letter}
               </div>
             ))}
           </div>
@@ -67,22 +61,18 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
             onClick={onShareClick}
             className="flex-1 flex items-center justify-center gap-2 py-3 px-6
               bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
-              text-white rounded-xl font-medium shadow-lg transform hover:scale-105 
-              transition-all duration-200 relative group"
+              text-white rounded-lg font-medium shadow-lg transform hover:scale-105 transition-all"
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-400 to-purple-400 opacity-75 blur group-hover:opacity-100 transition-opacity rounded-xl"></div>
-            <span className="relative flex items-center gap-2">
-              <ShareIcon size={20} />
-              Share Result
-            </span>
+            <ShareIcon size={20} />
+            Share Result
           </button>
           
           <Link
             to="/"
             className="flex-1 py-3 px-6
               bg-gradient-to-br from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-300
-              text-slate-800 rounded-xl text-center font-medium shadow-md
-              transform hover:scale-105 transition-all duration-200"
+              text-slate-800 rounded-lg text-center font-medium shadow-md
+              transform hover:scale-105 transition-all"
           >
             New Challenge
           </Link>
@@ -94,10 +84,10 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
             {guesses.map((guess, index) => (
               <div 
                 key={index} 
-                className="text-slate-700 font-medium p-4 rounded-xl
+                className="text-slate-700 font-medium p-3 rounded-lg
                   bg-gradient-to-r from-slate-50 to-white
                   shadow-sm hover:shadow-md animate-slide-in
-                  transform hover:translate-x-2 transition-all duration-200"
+                  transform hover:translate-x-1 transition-all"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {index + 1}. {guess.toUpperCase()}
