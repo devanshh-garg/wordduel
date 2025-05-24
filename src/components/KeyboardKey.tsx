@@ -46,3 +46,5 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ keyData, onClick }) => {
     </button>
   );
 };
+
+export default KeyboardKey
