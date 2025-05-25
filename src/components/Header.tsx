@@ -10,7 +10,7 @@ const Header: React.FC = () => {
           to="/" 
           className="flex items-center gap-2 text-indigo-600 font-bold text-xl"
         >
-          <Croissant size={34} />
+          <Croissant size={40} />
           <span>WordDuel</span>
         </Link> 
 
