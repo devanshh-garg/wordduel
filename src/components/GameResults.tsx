@@ -18,7 +18,7 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick, crea
   
   const creatorText = createdBy 
     ? `Challenge by ${createdBy}` 
-    : 'Anonymous challenge';
+    : `Challenge by: Your dorky friend`;
   
   return (
     <div className="max-w-md mx-auto my-8 px-4">
