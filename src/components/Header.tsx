@@ -1,5 +1,5 @@
 import React from 'react';
-import { croissant } from 'lucide-react';
+import { Croissant } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
