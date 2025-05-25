@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookIcon } from 'lucide-react';
+import { Croissant } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
@@ -10,7 +10,7 @@ const Header: React.FC = () => {
           to="/" 
           className="flex items-center gap-2 text-indigo-600 font-bold text-xl"
         >
-          <BookIcon size={24} />
+          <Croissant size={34} />
           <span>WordDuel</span>
         </Link> 
 
