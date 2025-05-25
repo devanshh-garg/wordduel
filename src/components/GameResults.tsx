@@ -6,12 +6,13 @@ import { PartyPopperIcon, FrownIcon, ShareIcon } from 'lucide-react';
 interface GameResultsProps {
   gameState: GameState;
   onShareClick: () => void;
+  createdBy?: string; // Add createdBy prop
 }
 
-const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) => {
-  const { gameStatus, word, guesses, createdBy } = gameState;
+const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick, createdBy }) => { // Accept createdBy
+  const { gameStatus, word, guesses } = gameState; // Remove createdBy from destructuring
   
-  const resultTitle = gameStatus === 'won' 
+  const resultTitle = gameStatus === 'won'
     ? `You got it in ${guesses.length} ${guesses.length === 1 ? 'try' : 'tries'}!` 
     : 'Better luck next time!';
   
@@ -31,13 +32,13 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
             <FrownIcon size={64} className="text-slate-500" />
           )}
         </div>
-        
-        <h2 className="text-3xl font-bold text-center mb-3 
+
+        <h2 className="text-3xl font-bold text-center mb-3
           bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           {resultTitle}
         </h2>
-        
-        <p className="text-lg font-medium text-center mb-8 
+
+        <p className="text-lg font-medium text-center mb-8
           bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent">
           {creatorText}
         </p>
@@ -46,7 +47,7 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
           <p className="text-lg text-slate-700 font-medium mb-4">The word was:</p>
           <div className="flex gap-2">
             {word.split('').map((letter, index) => (
-              <div 
+              <div
                 key={index}
                 className="w-14 h-14 flex items-center justify-center 
                   bg-gradient-to-br from-emerald-400 to-emerald-600 
@@ -59,7 +60,7 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
             ))}
           </div>
         </div>
-        
+
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <button
             onClick={onShareClick}
@@ -70,7 +71,7 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
             <ShareIcon size={20} />
             Share Result
           </button>
-          
+
           <Link
             to="/"
             className="flex-1 py-3 px-6
@@ -86,7 +87,7 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick }) =>
           <h3 className="font-medium text-slate-800 mb-4 text-lg">Your guesses:</h3>
           <div className="grid grid-cols-1 gap-2">
             {guesses.map((guess, index) => (
-              <div 
+              <div
                 key={index} 
                 className="text-slate-700 font-medium p-3 rounded-lg
                   bg-gradient-to-r from-slate-50 to-white
