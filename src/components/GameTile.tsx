@@ -6,7 +6,7 @@ interface GameTileProps {
   state: LetterState;
   position: number;
   isCurrentGuess?: boolean;
-}
+} 
 
 const GameTile: React.FC<GameTileProps> = ({ 
   letter, 
@@ -15,10 +15,10 @@ const GameTile: React.FC<GameTileProps> = ({
   isCurrentGuess = false 
 }) => {
   const stateClasses = {
-    correct: 'bg-gradient-to-br from-emerald-400 to-emerald-600 border-emerald-600 text-white dark:from-emerald-600 dark:to-emerald-800 dark:border-emerald-800',
-    present: 'bg-gradient-to-br from-amber-400 to-amber-500 border-amber-500 text-white dark:from-amber-600 dark:to-amber-700 dark:border-amber-700',
-    absent: 'bg-gradient-to-br from-slate-400 to-slate-600 border-slate-600 text-white dark:from-slate-600 dark:to-slate-800 dark:border-slate-800',
-    unused: 'bg-white border-slate-300 text-slate-800 dark:bg-gray-900 dark:border-gray-700 dark:text-slate-300'
+    correct: 'bg-gradient-to-br from-emerald-400 to-emerald-600 border-emerald-600 text-white',
+    present: 'bg-gradient-to-br from-amber-400 to-amber-500 border-amber-500 text-white',
+    absent: 'bg-gradient-to-br from-slate-400 to-slate-600 border-slate-600 text-white',
+    unused: 'bg-white border-slate-300 text-slate-800'
   };
   
   // Add animation delay based on position
