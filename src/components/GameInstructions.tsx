@@ -7,7 +7,7 @@ interface GameInstructionsProps {
 const GameInstructions: React.FC<GameInstructionsProps> = ({ createdBy }) => {
   const creatorText = createdBy 
     ? `Challenge by: ${createdBy}` 
-    : 'Challenge by: Anonymous User';
+    
   
   return (
     <div className="max-w-md mx-auto mt-4 mb-6 px-4">
