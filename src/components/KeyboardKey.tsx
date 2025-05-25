@@ -1,6 +1,6 @@
 import React from 'react';
 import { KeyboardKey as KeyboardKeyType } from '../types';
-import { Backspace as BackspaceIcon } from 'lucide-react';
+import { Backpack as BackspaceIcon } from 'lucide-react';
 
 interface KeyboardKeyProps {
   keyData: KeyboardKeyType;
