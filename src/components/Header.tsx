@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookIcon } from 'lucide-react';
+import { croissant } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
