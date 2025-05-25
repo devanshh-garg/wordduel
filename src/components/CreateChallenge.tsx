@@ -47,6 +47,7 @@ const CreateChallenge: React.FC = () => {
         return;
       }
       
+      console.log('Creator state before encoding:', creator);
       const challengeId = generateChallengeId();
       const encodedData = encodeWord(word, creator); // Pass creator directly
       const url = `${window.location.origin}/challenge/${challengeId}/${encodedData}`;
@@ -91,7 +92,7 @@ const CreateChallenge: React.FC = () => {
           
           <div>
             <label htmlFor="creator" className="block text-sm font-medium text-slate-700 mb-1">
-              Your name 
+              Your name
             </label>
             <input
               type="text"
