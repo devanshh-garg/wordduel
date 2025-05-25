@@ -1,15 +1,11 @@
 import React from 'react';
 
 interface GameInstructionsProps {
-  createdBy: string;
+  createdBy?: string;
 }
 
 const GameInstructions: React.FC<GameInstructionsProps> = ({ createdBy }) => {
-  const creatorText = createdBy 
-    ? `Challenge by: ${createdBy}` 
-    : `Challenge by: Your dorky friend`;
-    
-   
+  const creatorText = `Challenge by: ${createdBy || 'Unknown Challenger'}`;
   
   return (
     <div className="max-w-md mx-auto mt-4 mb-6 px-4">
