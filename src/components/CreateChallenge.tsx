@@ -22,7 +22,7 @@ const CreateChallenge: React.FC = () => {
   
   const handleCreatorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log('Input value:', e.target.value, 'Updated creator state:', e.target.value.slice(0, 20));
-    setCreator(e.target.value.slice(0, 20));
+    setCreator(e.target.value);
     setShowShareLink(false);
   };
   
