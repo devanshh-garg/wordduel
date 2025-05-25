@@ -11,7 +11,7 @@ const Header: React.FC = () => {
           to="/" 
           className="flex items-center gap-2 text-indigo-600 font-bold text-xl"
         >
-          <BookIcon size={24} />
+          <Croissant size={24} />
           <span>WordDuel</span>
         </Link>
         
