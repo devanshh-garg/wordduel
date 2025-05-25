@@ -1,6 +1,6 @@
 import React from 'react';
 import { KeyboardKey as KeyboardKeyType } from '../types';
-import { SpaceIcon as BackspaceIcon } from 'lucide-react';
+import { BackspaceIcon } from 'lucide-react';
 
 interface KeyboardKeyProps {
   keyData: KeyboardKeyType;
@@ -37,7 +37,7 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ keyData, onClick }) => {
       `}
     >
       {key === 'backspace' ? (
-        <BackspaceIcon size={24} />
+        <BackspaceIcon size={20} />
       ) : key === 'enter' ? (  
         'Enter'
       ) : (
