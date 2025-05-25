@@ -40,9 +40,9 @@ export const useGameState = (targetWord: string, createdBy?: string): {
       const lastGuess = gameState.guesses[gameState.guesses.length - 1];
       
       if (lastGuess.toLowerCase() === targetWord.toLowerCase()) {
-        setGameState(prev => ({ ...prev, gameStatus: 'won' }));
+        setGameState(prev => ({ ...prev, gameStatus: 'won', word: targetWord })); // Include targetWord
       } else if (gameState.guesses.length >= MAX_ATTEMPTS) {
-        setGameState(prev => ({ ...prev, gameStatus: 'lost' }));
+        setGameState(prev => ({ ...prev, gameStatus: 'lost', word: targetWord })); // Include targetWord
       }
     }
   }, [gameState.guesses, targetWord]);
