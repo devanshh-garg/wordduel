@@ -110,7 +110,7 @@ const GamePage: React.FC = () => {
       <main className="max-w-lg mx-auto px-4 py-6">
         {gameState.gameStatus === 'playing' ? (
           <React.Fragment>
-            <GameInstructions createdBy={gameState.createdBy} />
+            <GameInstructions createdBy={decodedData?.createdBy} />
             <GameBoard gameState={gameState} letterStates={letterStates} />
             {error && (
               <p className="text-center text-red-600 text-sm mt-4 animate-fade-in">
