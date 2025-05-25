@@ -21,6 +21,8 @@ const GamePage: React.FC = () => {
       return;
     }
     
+    console.log('Encoded Word:', encodedWord);
+
     try {
       const data = decodeWord(encodedWord);
       setDecodedData(data);
@@ -28,7 +30,8 @@ const GamePage: React.FC = () => {
       navigate('/');
     }
   }, [encodedWord, navigate]);
-  
+
+
   const { 
     gameState, 
     addLetter, 
