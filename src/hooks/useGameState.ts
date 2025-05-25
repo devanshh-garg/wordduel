@@ -7,7 +7,7 @@ const MAX_ATTEMPTS = 6;
 export const useGameState = (targetWord: string, createdBy?: string): {
   gameState: GameState;
   addLetter: (letter: string) => void;
-  removeLetter: () => void;
+  removeLetter: () => void; 
   submitGuess: () => Promise<void>;
   letterStates: Record<string, LetterState[]>;
   error?: string;
