@@ -26,11 +26,19 @@ const CreateChallenge: React.FC = () => {
     setShowShareLink(false);
   };
   
+  // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsValidating(true);
     setError('');
     
+    // Make creator name mandatory
+    if (!creator.trim()) {
+      setError('Please enter your name');
+      setIsValidating(false);
+      return;
+    }
+
     try {
       const valid = await isValidWord(word);
       if (!valid) {
@@ -40,7 +48,7 @@ const CreateChallenge: React.FC = () => {
       }
       
       const challengeId = generateChallengeId();
-      const encodedData = encodeWord(word, creator || undefined);
+      const encodedData = encodeWord(word, creator); // Pass creator directly
       const url = `${window.location.origin}/challenge/${challengeId}/${encodedData}`;
       
       setChallengeUrl(url);
