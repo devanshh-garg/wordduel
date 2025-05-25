@@ -7,7 +7,7 @@ interface GameInstructionsProps {
 const GameInstructions: React.FC<GameInstructionsProps> = ({ createdBy }) => {
   const creatorText = createdBy 
     ? `Challenge by: ${createdBy}` 
-    : `Challenge by: ${createdBy}`;
+    : `Challenge by: Your dorky friend`;
     
    
   
