@@ -103,12 +103,16 @@ export const getKeyboardState = (guesses: string[], targetWord: string): Record<
       const currentState = keyStates[letter];
       const newState = states[index];
       
-      // Update priority: correct > present > absent > unused
+      // Update state based on priority: correct > present > absent > unused
       if (newState === 'correct') {
         keyStates[letter] = 'correct';
-      } else if (newState === 'present' && currentState !== 'correct') {
-        keyStates[letter] = 'present';
-      } else if (newState === 'absent' && currentState !== 'correct' && currentState !== 'present') {
+      } else if (newState === 'present') {
+        // If the letter isn't already marked as correct, mark it as present
+        if (currentState !== 'correct') {
+          keyStates[letter] = 'present';
+        }
+      } else if (newState === 'absent' && currentState === 'unused') {
+        // Only mark as absent if it's currently unused
         keyStates[letter] = 'absent';
       }
     });
