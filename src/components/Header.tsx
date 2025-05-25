@@ -3,7 +3,16 @@ import { BookIcon, Moon, Sun } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('theme') === 'dark' || (window.matchMedia('(prefers-color-scheme: dark)').matches && localStorage.getItem('theme') !== 'light'))):
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
   return (
     <header className="w-full bg-white border-b border-slate-200 py-4 px-4">
       <div className="max-w-3xl mx-auto flex items-center justify-between">
@@ -16,18 +25,17 @@ const Header: React.FC = () => {
         </Link>
         
         <nav className="flex gap-4">
-          <Link
+          <Link 
             to="/" 
             className="text-slate-700 hover:text-indigo-600 transition-colors"
           >
             New Challenge
           </Link>
           <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
+            onClick={() => setDarkMode(!darkMode)}
             className="text-slate-700 hover:text-indigo-600 transition-colors"
-            aria-label="Toggle dark mode"
           >
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
         </nav>
       </div>
@@ -35,9 +43,16 @@ const Header: React.FC = () => {
   );
 };
 
-useEffect(() => {
-  document.documentElement.classList.toggle('dark', isDarkMode);
-  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-}, [isDarkMode]);
+export default Header;
+            to="/" 
+            className="text-slate-700 hover:text-indigo-600 transition-colors"
+          >
+            New Challenge
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+};
 
 export default Header;
