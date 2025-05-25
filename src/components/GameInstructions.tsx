@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface GameInstructionsProps {
-  createdBy?: string;
+  createdBy: string;
 }
 
 const GameInstructions: React.FC<GameInstructionsProps> = ({ createdBy }) => {
