@@ -1,54 +1,50 @@
 import React from 'react';
-import { LetterState } from '../types';
+import { KeyboardKey as KeyboardKeyType } from '../types';
+import { Delete as BackspaceIcon } from 'lucide-react';
 
-interface GameTileProps {
-  letter: string;
-  state: LetterState;
-  position: number;
-  isCurrentGuess?: boolean;
+interface KeyboardKeyProps {
+  keyData: KeyboardKeyType;
+  onClick: () => void;
 }
 
-const GameTile: React.FC<GameTileProps> = ({ 
-  letter, 
-  state, 
-  position,
-  isCurrentGuess = false 
-}) => {
+const KeyboardKey: React.FC<KeyboardKeyProps> = ({ keyData, onClick }) => {
+  const { key, state, width = 1 } = keyData;
+  
   const stateClasses = {
-    correct: 'bg-gradient-to-br from-emerald-400 to-emerald-600 border-emerald-600 text-white dark:from-emerald-600 dark:to-emerald-800 dark:border-emerald-800',
-    present: 'bg-gradient-to-br from-amber-400 to-amber-500 border-amber-500 text-white dark:from-amber-600 dark:to-amber-700 dark:border-amber-700',
-    absent: 'bg-gradient-to-br from-slate-400 to-slate-600 border-slate-600 text-white dark:from-slate-600 dark:to-slate-800 dark:border-slate-800',
-    unused: 'bg-white border-slate-300 text-slate-800 dark:bg-gray-900 dark:border-gray-700 dark:text-slate-300'
+    correct: 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-200',
+    present: 'bg-amber-400 hover:bg-amber-500 text-white shadow-amber-200',
+    absent: 'bg-slate-500 hover:bg-slate-600 text-white shadow-slate-200',
+    unused: 'bg-slate-200 hover:bg-slate-300 text-slate-700 shadow-slate-100'
   };
-  
-  // Add animation delay based on position
-  const animationDelay = `${position * 100}ms`;
-  
-  // Add animation classes if it's a submitted guess
-  const animationClass = state !== 'unused' && !isCurrentGuess 
-    ? 'animate-flip-in' 
-    : '';
-  
-  // Add pulse animation if it's the current guess
-  const pulseClass = letter && isCurrentGuess 
-    ? 'animate-pulse-once' 
-    : '';
-  
+
+  // Calculate width based on the width prop (1 = standard key width)
+  const widthClass = width === 1
+    ? 'w-8 sm:w-10'
+    : 'w-16 sm:w-20';
+ 
   return (
-    <div 
+    <button
+      onClick={onClick}
       className={`
-        w-full aspect-square flex items-center justify-center 
-        text-2xl font-bold uppercase border-2 rounded-lg shadow-md
-        ${stateClasses[state]} 
-        ${animationClass}
-        ${pulseClass}
-        transform-gpu transition-all duration-300
+        ${stateClasses[state]}
+        ${widthClass}
+        h-12 sm:h-14
+        rounded-lg font-medium
+        flex items-center justify-center
+        transition-all duration-200
+        shadow-lg uppercase text-sm
+        transform hover:scale-105 active:scale-95
       `}
-      style={{ animationDelay }}
     >
-      {letter}
-    </div>
+      {key === 'backspace' ? (
+        <BackspaceIcon size={20} />
+      ) : key === 'enter' ? (  
+        'Enter'
+      ) : (
+        key
+      )}
+    </button>
   );
 };
 
-export default GameTile;
+export default KeyboardKey;
