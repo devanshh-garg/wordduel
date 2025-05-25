@@ -21,13 +21,10 @@ const CreateChallenge: React.FC = () => {
   };
   
   const handleCreatorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('handleCreatorChange - Input value:', e.target.value);
-    console.log('handleCreatorChange - Value being set:', e.target.value);
     setCreator(e.target.value);
     setShowShareLink(false);
   };
   
-  // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsValidating(true);
@@ -39,7 +36,7 @@ const CreateChallenge: React.FC = () => {
       setIsValidating(false);
       return;
     }
-
+    
     try {
       const valid = await isValidWord(word);
       if (!valid) {
@@ -48,9 +45,8 @@ const CreateChallenge: React.FC = () => {
         return;
       }
       
-      console.log('Creator state before encoding:', creator);
       const challengeId = generateChallengeId();
-      const encodedData = encodeWord(word, creator); // Pass creator directly
+      const encodedData = encodeWord(word, creator);
       const url = `${window.location.origin}/challenge/${challengeId}/${encodedData}`;
       
       setChallengeUrl(url);
@@ -101,7 +97,8 @@ const CreateChallenge: React.FC = () => {
               value={creator}
               onChange={handleCreatorChange}
               className="w-full px-4 py-2 border-2 border-slate-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="Anonymous"
+              placeholder="Enter your name"
+              required
             />
           </div>
           

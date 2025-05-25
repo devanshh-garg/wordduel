@@ -22,36 +22,26 @@ export const generateChallengeId = (): string => {
 
 // Encodes the word for URL sharing
 export const encodeWord = (word: string, createdBy?: string): string => {
-  console.log('encodeWord - createdBy:', createdBy);
   const wordToEncode = word.toLowerCase();
   const encoded = btoa(wordToEncode);
   
   if (createdBy && createdBy.trim()) {
-    const trimmedCreator = createdBy.trim();
-    return `${encoded}|${btoa(trimmedCreator)}`;
+    return `${encoded}|${btoa(createdBy.trim())}`;
   }
   
-  return encoded;
+  return `${encoded}|${btoa('Anonymous User')}`;
 };
 
 // Decodes the word from URL
-export const decodeWord = (encoded: string): { word: string; createdBy?: string } => {
+export const decodeWord = (encoded: string): { word: string; createdBy: string } => {
   try {
-    if (encoded.includes('|')) {
-      const [wordEncoded, creatorEncoded] = encoded.split('|');
-      const decodedWord = atob(wordEncoded);
-      let decodedCreator = atob(creatorEncoded);
-      
-      // Only return creator if it's not empty after trimming
-      decodedCreator = decodedCreator.trim();
-      return {
-        word: decodedWord,
-        createdBy: decodedCreator || undefined
-      };
-    }
+    const [wordEncoded, creatorEncoded] = encoded.split('|');
+    const decodedWord = atob(wordEncoded);
+    const decodedCreator = creatorEncoded ? atob(creatorEncoded) : 'Anonymous User';
     
     return {
-      word: atob(encoded)
+      word: decodedWord,
+      createdBy: decodedCreator
     };
   } catch (error) {
     console.error('Error decoding data:', error);
