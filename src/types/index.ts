@@ -7,7 +7,7 @@ export interface GameState {
   guesses: string[];
   currentGuess: string;
   gameStatus: GameStatus;
-  createdBy?: string;
+  createdBy: string;
 }
 
 export interface KeyboardKey {
