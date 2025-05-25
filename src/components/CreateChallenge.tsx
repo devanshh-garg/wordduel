@@ -91,7 +91,7 @@ const CreateChallenge: React.FC = () => {
           
           <div>
             <label htmlFor="creator" className="block text-sm font-medium text-slate-700 mb-1">
-              Your name (optional)
+              Your name 
             </label>
             <input
               type="text"
