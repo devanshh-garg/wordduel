@@ -122,6 +122,7 @@ const GamePage: React.FC = () => {
               onDelete={removeLetter}
               onEnter={submitGuess}
               guesses={gameState.guesses}
+              letterStates={letterStates}
               targetWord={gameState.word}
             />
             
