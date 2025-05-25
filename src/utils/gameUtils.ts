@@ -22,6 +22,7 @@ export const generateChallengeId = (): string => {
 
 // Encodes the word for URL sharing
 export const encodeWord = (word: string, createdBy?: string): string => {
+  console.log('encodeWord - createdBy:', createdBy);
   const wordToEncode = word.toLowerCase();
   const encoded = btoa(wordToEncode);
   
