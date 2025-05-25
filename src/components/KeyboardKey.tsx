@@ -1,6 +1,6 @@
 import React from 'react';
 import { KeyboardKey as KeyboardKeyType } from '../types';
-import { BackspaceIcon } from 'lucide-react';
+import { Backspace as BackspaceIcon } from 'lucide-react';
 
 interface KeyboardKeyProps {
   keyData: KeyboardKeyType;
@@ -47,4 +47,4 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ keyData, onClick }) => {
   );
 };
 
-export default KeyboardKey
+export default KeyboardKey;
