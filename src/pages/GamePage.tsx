@@ -109,7 +109,7 @@ const GamePage: React.FC = () => {
       
       <main className="max-w-lg mx-auto px-4 py-6">
         {gameState.gameStatus === 'playing' ? (
-          <>
+          <React.Fragment>
             <GameInstructions createdBy={gameState.createdBy} />
             <GameBoard gameState={gameState} letterStates={letterStates} />
             {error && (
@@ -131,7 +131,7 @@ const GamePage: React.FC = () => {
                 <CopyLink url={window.location.href} />
               </div>
             )}
-          </>
+          </React.Fragment>
         ) : (
          <GameResults gameState={gameState} onShareClick={handleShare} createdBy={decodedData?.createdBy} />
 
