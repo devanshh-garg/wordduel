@@ -37,7 +37,7 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ keyData, onClick }) => {
       `}
     >
       {key === 'backspace' ? (
-        <BackspaceIcon size={20} />
+        <BackspaceIcon size={24} />
       ) : key === 'enter' ? (
         'Enter'
       ) : (
