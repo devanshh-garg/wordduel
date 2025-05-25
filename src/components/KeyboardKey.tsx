@@ -16,12 +16,12 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ keyData, onClick }) => {
     absent: 'bg-slate-500 hover:bg-slate-600 text-white shadow-slate-200',
     unused: 'bg-slate-200 hover:bg-slate-300 text-slate-700 shadow-slate-100'
   };
-  
+
   // Calculate width based on the width prop (1 = standard key width)
-  const widthClass = width === 1 
-    ? 'w-8 sm:w-10' 
+  const widthClass = width === 1
+    ? 'w-8 sm:w-10'
     : 'w-16 sm:w-20';
-  
+ 
   return (
     <button
       onClick={onClick}
@@ -29,7 +29,7 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ keyData, onClick }) => {
         ${stateClasses[state]}
         ${widthClass}
         h-12 sm:h-14
-        rounded-lg font-medium 
+        rounded-lg font-medium
         flex items-center justify-center
         transition-all duration-200
         shadow-lg uppercase text-sm
@@ -38,7 +38,7 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ keyData, onClick }) => {
     >
       {key === 'backspace' ? (
         <BackspaceIcon size={24} />
-      ) : key === 'enter' ? (
+      ) : key === 'enter' ? (  
         'Enter'
       ) : (
         key
