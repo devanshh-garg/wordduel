@@ -24,12 +24,7 @@ export const generateChallengeId = (): string => {
 export const encodeWord = (word: string, createdBy?: string): string => {
   const wordToEncode = word.toLowerCase();
   const encoded = btoa(wordToEncode);
-  
-  if (createdBy && createdBy.trim()) {
-    return `${encoded}|${btoa(createdBy.trim())}`;
-  }
-  
-  return `${encoded}|${btoa('Anonymous User')}`;
+  return `${encoded}|${btoa(createdBy?.trim() || '')}`;
 };
 
 // Decodes the word from URL
