@@ -8,18 +8,43 @@ interface KeyboardProps {
   onDelete: () => void;
   onEnter: () => void;
   guesses: string[];
-  targetWord: string;
+  letterStates: Record<string, LetterState[]>;
 }
 
 const Keyboard: React.FC<KeyboardProps> = ({ 
   onKeyPress, 
   onDelete, 
   onEnter, 
-  guesses,
-  targetWord
+  guesses, // Guesses is still needed to iterate through the keys
+  letterStates
 }) => {
-  const keyboardState = getKeyboardState(guesses, targetWord);
+  const keyStates: Record<string, LetterState> = {};
+
+  // Initialize all keys as unused
+  'abcdefghijklmnopqrstuvwxyz'.split('').forEach(letter => {
+    keyStates[letter] = 'unused';
+  });
   
+  // Update states based on letterStates
+  guesses.forEach(guess => { // Iterate through guesses to access corresponding letterStates
+    const states = letterStates[guess];
+    if (states) {
+      guess.toLowerCase().split('').forEach((letter, index) => {
+        const currentState = keyStates[letter];
+        const newState = states[index];
+        
+        // Update state based on priority: correct > present > absent > unused
+        if (newState === 'correct') {
+          keyStates[letter] = 'correct';
+        } else if (newState === 'present' && currentState !== 'correct') {
+          keyStates[letter] = 'present';
+        } else if (newState === 'absent' && currentState === 'unused') {
+          keyStates[letter] = 'absent';
+        }
+      });
+    }
+  });
+
   const rows = [
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
@@ -42,7 +67,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
         <KeyboardRow 
           key={index} 
           keys={row} 
-          keyStates={keyboardState}
+          keyStates={keyStates}
           onKeyClick={handleKeyClick}
         />
       ))}
