@@ -130,7 +130,8 @@ const GamePage: React.FC = () => {
             )}
           </>
         ) : (
-          <GameResults gameState={gameState} onShareClick={handleShare} />
+         <GameResults gameState={gameState} onShareClick={handleShare} createdBy={decodedData?.createdBy} />
+
         )}
       </main>
     </div>
