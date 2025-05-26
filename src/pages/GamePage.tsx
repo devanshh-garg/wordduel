@@ -68,20 +68,21 @@ const GamePage: React.FC = () => {
   }, [handleKeyDown]);
   
   const handleShare = () => {
-    const { gameStatus, guesses } = gameState;
+    const { gameStatus, guesses, word } = gameState;
     const baseText = `WordDuel Challenge${gameStatus === 'won' ? ` solved in ${guesses.length}/6` : ': Failed'}`;
     
-    // Create emoji grid (like Wordle)
-    const emojiGrid = guesses.map(guess => {
+    // Create combined text with both words and emoji grid
+    const guessesWithEmoji = guesses.map(guess => {
       const states = letterStates[guess];
-      return states.map(state => {
+      const emojis = states.map(state => {
         if (state === 'correct') return '🟩';
         if (state === 'present') return '🟨';
         return '⬜';
       }).join('');
+      return `${guess.toUpperCase()} ${emojis}`;
     }).join('\n');
     
-    const shareText = `${baseText}\n\n${emojiGrid}\n\nCreate your own: ${window.location.origin}`;
+    const shareText = `${baseText}\n\n${guessesWithEmoji}\n\n${gameStatus === 'lost' ? `Word was: ${word.toUpperCase()}\n\n` : ''}Create your own: ${window.location.origin}`;
     
     if (navigator.share) {
       navigator.share({
