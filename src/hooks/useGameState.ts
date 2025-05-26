@@ -16,6 +16,7 @@ export const useGameState = (targetWord: string, createdBy?: string): {
 } => {
   const localStorageKey = `wordle-game-state-${targetWord}`;
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const loadGameState = (): GameState => {
     const savedState = localStorage.getItem(localStorageKey);
@@ -103,6 +104,7 @@ export const useGameState = (targetWord: string, createdBy?: string): {
 
   const submitGuess = async () => {
     if (gameState.gameStatus !== 'playing') return;
+    if (isSubmitting) return; // Prevent submission if one is already in progress
     
     // Prevent empty submissions
     if (gameState.currentGuess.trim().length === 0) {
@@ -114,20 +116,23 @@ export const useGameState = (targetWord: string, createdBy?: string): {
     if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
       return;
     }
-    setLastSubmitTime(now);
 
     if (gameState.currentGuess.length !== 5) {
       setError('Word must be 5 letters');
       return;
     }
+
+    setIsSubmitting(true); // Set submitting flag
     
     try {
       const valid = await isValidWord(gameState.currentGuess);
       if (!valid) {
         setError('Not a valid word');
+        setIsSubmitting(false); // Reset submitting flag
         return;
       }
       
+      setLastSubmitTime(now);
       setGameState(prev => ({
         ...prev,
         guesses: [...prev.guesses, prev.currentGuess],
@@ -136,6 +141,8 @@ export const useGameState = (targetWord: string, createdBy?: string): {
       setError(undefined);
     } catch (error) {
       setError('Error validating word');
+    } finally {
+      setIsSubmitting(false); // Always reset submitting flag
     }
   };
 
