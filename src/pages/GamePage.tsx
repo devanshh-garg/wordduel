@@ -6,7 +6,6 @@ import Keyboard from '../components/Keyboard';
 import GameResults from '../components/GameResults';
 import GameInstructions from '../components/GameInstructions';
 import CopyLink from '../components/CopyLink';
-import Footer from '../components/Footer';
 import { useGameState } from '../hooks/useGameState';
 import { decodeWord } from '../utils/gameUtils';
 
@@ -108,26 +107,24 @@ const GamePage: React.FC = () => {
   
   if (!decodedData) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex flex-col">
-        <div className="flex-grow flex items-center justify-center">Loading...</div>
-        <Footer />
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex items-center justify-center">
+        Loading...
       </div>
     );
   }
   
   if (!decodedData || !gameState.word) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex flex-col">
-        <div className="flex-grow flex items-center justify-center">Loading Game...</div>
-        <Footer />
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex items-center justify-center">
+        Loading Game...
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-900">
       <Header />
-      <main className="flex-grow max-w-lg mx-auto px-4 py-6">
+      <main className="max-w-lg mx-auto px-4 py-6">
         {gameState.gameStatus === 'playing' ? (
           <React.Fragment>
             <GameInstructions createdBy={decodedData?.createdBy} />
@@ -157,7 +154,6 @@ const GamePage: React.FC = () => {
          <GameResults gameState={gameState} onShareClick={handleShare} createdBy={decodedData?.createdBy} />
         )}
       </main>
-      <Footer />
     </div>
   );
 };
