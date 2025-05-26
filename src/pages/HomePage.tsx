@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 
 const HomePage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex flex-col">
       <Header />
-      <main>
+      <main className="flex-grow">
         <CreateChallenge />
       </main>
       <Footer />
