@@ -71,7 +71,10 @@ const GamePage: React.FC = () => {
     const { gameStatus, guesses, word } = gameState;
     const baseText = `WordDuel Challenge${gameStatus === 'won' ? ` solved in ${guesses.length}/6` : ': Failed'}`;
     
-    // Create combined text with both words and emoji grid
+    // Find the longest word length for padding
+    const maxLength = Math.max(...guesses.map(g => g.length));
+    
+    // Create combined text with both words and emoji grid, using padding for alignment
     const guessesWithEmoji = guesses.map(guess => {
       const states = letterStates[guess];
       const emojis = states.map(state => {
@@ -79,7 +82,9 @@ const GamePage: React.FC = () => {
         if (state === 'present') return '🟨';
         return '⬜';
       }).join('');
-      return `${guess.toUpperCase()} ${emojis}`;
+      // Pad the word with spaces to align emojis
+      const paddedWord = guess.toUpperCase().padEnd(maxLength, ' ');
+      return `${paddedWord}  ${emojis}`; // Two spaces between word and emojis for clean separation
     }).join('\n');
     
     const shareText = `${baseText}\n\n${guessesWithEmoji}\n\n${gameStatus === 'lost' ? `Word was: ${word.toUpperCase()}\n\n` : ''}Create your own: ${window.location.origin}`;
