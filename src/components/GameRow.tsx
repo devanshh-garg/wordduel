@@ -12,7 +12,7 @@ const GameRow: React.FC<GameRowProps> = ({ word, states, isCurrentGuess }) => {
   const letters = word.split('').concat(Array(5 - word.length).fill(''));
 
   return (
-    <div className="grid grid-cols-5 gap-2">
+    <div className="grid grid-cols-5 gap-[6px]">
       {letters.map((letter, i) => {
         let state: 'empty' | 'tbd' | 'correct' | 'present' | 'absent' = 'empty';
         
