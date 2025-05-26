@@ -10,7 +10,7 @@ interface KeyboardRowProps {
 
 const KeyboardRow: React.FC<KeyboardRowProps> = ({ keys, keyStates, onKeyClick }) => {
   return (
-    <div className="flex justify-center gap-1.5 my-1.5">
+    <div className="flex justify-center gap-1.5 my-1">
       {keys.map((key, index) => {
         const lowerCaseKey = key.toLowerCase();
         const state = keyStates[lowerCaseKey] || 'unused';
