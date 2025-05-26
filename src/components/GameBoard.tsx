@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { GameState, LetterState } from '../types';
 import GameRow from './GameRow';
-import { useSoundEffects } from '../hooks/useSoundEffects';
 import { useHapticFeedback } from '../hooks/useHapticFeedback';
 import { fireConfetti } from '../utils/confetti';
 
@@ -12,17 +11,15 @@ interface GameBoardProps {
 
 const GameBoard: React.FC<GameBoardProps> = ({ gameState, letterStates }) => {
   const { guesses, currentGuess } = gameState;
-  const { playCorrect, playIncorrect, playWin } = useSoundEffects();
   const haptics = useHapticFeedback();
   
   // Handle win/lose effects
   useEffect(() => {
     if (gameState.gameStatus === 'won') {
-      playWin();
       haptics.gameWon();
       fireConfetti();
     }
-  }, [gameState.gameStatus, playWin, haptics]);
+  }, [gameState.gameStatus, haptics]);
 
   // Handle guess submission effects
   useEffect(() => {
@@ -33,15 +30,13 @@ const GameBoard: React.FC<GameBoardProps> = ({ gameState, letterStates }) => {
       if (lastGuessStates) {
         const hasCorrect = lastGuessStates.some(state => state === 'correct');
         if (hasCorrect) {
-          playCorrect();
           haptics.success();
         } else {
-          playIncorrect();
           haptics.error();
         }
       }
     }
-  }, [guesses.length, letterStates, playCorrect, playIncorrect, haptics]);
+  }, [guesses.length, letterStates, haptics]);
 
   const allRows = [...guesses];
   
