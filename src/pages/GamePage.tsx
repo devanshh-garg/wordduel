@@ -6,6 +6,7 @@ import Keyboard from '../components/Keyboard';
 import GameResults from '../components/GameResults';
 import GameInstructions from '../components/GameInstructions';
 import CopyLink from '../components/CopyLink';
+import Footer from '../components/Footer';
 import { useGameState } from '../hooks/useGameState';
 import { decodeWord } from '../utils/gameUtils';
 
@@ -148,9 +149,9 @@ const GamePage: React.FC = () => {
           </React.Fragment>
         ) : (
          <GameResults gameState={gameState} onShareClick={handleShare} createdBy={decodedData?.createdBy} />
-
         )}
       </main>
+      <Footer />
     </div>
   );
 };
