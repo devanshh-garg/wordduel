@@ -3,6 +3,7 @@ import { GameState, GameStatus, LetterState } from '../types';
 import { evaluateGuess, isValidWord } from '../utils/gameUtils';
 
 const MAX_ATTEMPTS = 6;
+const SUBMIT_COOLDOWN_MS = 250; // 250ms cooldown between submissions
 
 export const useGameState = (targetWord: string, createdBy?: string): {
     gameState: GameState;
@@ -14,6 +15,7 @@ export const useGameState = (targetWord: string, createdBy?: string): {
     resetGame: () => void;
 } => {
   const localStorageKey = `wordle-game-state-${targetWord}`;
+  const [lastSubmitTime, setLastSubmitTime] = useState(0);
 
   const loadGameState = (): GameState => {
     const savedState = localStorage.getItem(localStorageKey);
@@ -101,7 +103,23 @@ export const useGameState = (targetWord: string, createdBy?: string): {
 
   const submitGuess = async () => {
     if (gameState.gameStatus !== 'playing') return;
-    if (gameState.currentGuess.length !== 5) { return; }
+    
+    // Prevent empty submissions
+    if (gameState.currentGuess.trim().length === 0) {
+      return;
+    }
+
+    // Check if enough time has passed since last submission
+    const now = Date.now();
+    if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
+      return;
+    }
+    setLastSubmitTime(now);
+
+    if (gameState.currentGuess.length !== 5) {
+      setError('Word must be 5 letters');
+      return;
+    }
     
     try {
       const valid = await isValidWord(gameState.currentGuess);
