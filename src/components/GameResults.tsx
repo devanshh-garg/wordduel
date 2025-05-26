@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GameState } from '../types';
-import { PartyPopperIcon, FrownIcon, ShareIcon } from 'lucide-react';
+import { PartyPopperIcon, FrownIcon, ShareIcon, BookOpenIcon } from 'lucide-react';
+import { useWordDefinition } from '../hooks/useWordDefinition';
 
 interface GameResultsProps {
   gameState: GameState;
@@ -11,6 +12,7 @@ interface GameResultsProps {
 
 const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick, createdBy }) => {
   const { gameStatus, word, guesses } = gameState;
+  const { definitions, isLoading, error } = useWordDefinition(word);
   
   const resultTitle = gameStatus === 'won'
     ? `You got it in ${guesses.length} ${guesses.length === 1 ? 'try' : 'tries'}!` 
@@ -61,6 +63,40 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick, crea
           </div>
         </div>
 
+        {/* Word Definition Section */}
+        <div className="mb-8 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-inner">
+          <div className="flex items-center gap-2 mb-4">
+            <BookOpenIcon size={24} className="text-indigo-500 dark:text-indigo-400" />
+            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200">
+              Definition
+            </h3>
+          </div>
+          
+          {isLoading ? (
+            <p className="text-slate-600 dark:text-slate-400 animate-pulse">Loading definition...</p>
+          ) : error ? (
+            <p className="text-slate-600 dark:text-slate-400 italic">Definition not available</p>
+          ) : (
+            <div className="space-y-4">
+              {definitions.slice(0, 2).map((def, index) => (
+                <div key={index} className="animate-slide-in" style={{ animationDelay: `${index * 150}ms` }}>
+                  <p className="text-indigo-600 dark:text-indigo-400 font-medium mb-1">
+                    {def.partOfSpeech}
+                  </p>
+                  <p className="text-slate-700 dark:text-slate-300 mb-2">
+                    {def.definition}
+                  </p>
+                  {def.example && (
+                    <p className="text-slate-600 dark:text-slate-400 italic text-sm">
+                      Example: {def.example}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <button
             onClick={onShareClick}
@@ -107,4 +143,4 @@ const GameResults: React.FC<GameResultsProps> = ({ gameState, onShareClick, crea
   );
 };
 
-export default GameResults
+export default GameResults;
