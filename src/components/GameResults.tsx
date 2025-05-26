@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { GameState } from '../types';
 import { PartyPopperIcon, FrownIcon, ShareIcon, BookOpenIcon } from 'lucide-react';
-import { useWordDefinition } from '../hooks/useWordDefinition';
+import { useWordDefinition } from '../hooks/useWordDefinition.ts';
 
 interface GameResultsProps {
   gameState: GameState;
