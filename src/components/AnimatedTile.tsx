@@ -8,8 +8,8 @@ interface AnimatedTileProps {
 }
 
 const stateToColor = {
-  empty: 'bg-slate-200 dark:bg-gray-700',
-  tbd: 'bg-slate-300 dark:bg-gray-600',
+  empty: 'bg-slate-700/50 dark:bg-gray-700/50',
+  tbd: 'bg-slate-600/50 dark:bg-gray-600/50',
   correct: 'bg-emerald-500',
   present: 'bg-amber-500',
   absent: 'bg-slate-500 dark:bg-gray-600'
@@ -42,11 +42,12 @@ const AnimatedTile: React.FC<AnimatedTileProps> = ({ letter, state, delay = 0 })
       animate={state === 'tbd' ? 'pop' : 'flip'}
       variants={variants}
       className={`
-        w-14 h-14 flex items-center justify-center
-        font-bold text-2xl rounded-lg
+        w-[62px] h-[62px] flex items-center justify-center
+        font-bold text-3xl rounded-xl
         transform transition-colors duration-500
         ${stateToColor[state]}
-        ${state !== 'empty' ? 'text-white' : 'text-slate-700 dark:text-slate-300'}
+        ${state !== 'empty' ? 'text-white' : 'text-white/80'}
+        border-2 border-slate-600/20 dark:border-gray-600/20
       `}
     >
       {letter.toUpperCase()}
