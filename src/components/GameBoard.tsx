@@ -51,7 +51,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ gameState, letterStates }) => {
   }
   
   return (
-    <div className="grid gap-2 w-full max-w-sm mx-auto">
+    <div className="grid gap-[6px] w-full max-w-[330px] mx-auto px-1">
       {allRows.map((guess, index) => {
         const isCurrentGuess = index === guesses.length && gameState.gameStatus === 'playing';
         const isSubmittedGuess = index < guesses.length;
