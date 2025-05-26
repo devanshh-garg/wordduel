@@ -31,16 +31,16 @@ const GamePage: React.FC = () => {
     }
   }, [encodedWord, navigate]);
 
-
   const { 
     gameState, 
     addLetter, 
     removeLetter, 
     submitGuess, 
     letterStates,
-    error 
+ error 
   } = useGameState(
-    decodedData?.word || '', 
+    // Only initialize useGameState when decodedData is available
+    decodedData?.word || '',
     decodedData?.createdBy
   );
   
@@ -103,8 +103,15 @@ const GamePage: React.FC = () => {
     return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>;
   }
   
+  // Conditionally render the game board and related components only when decodedData is available
+  if (!decodedData || !gameState.word) {
+    // If decodedData is null or the word hasn't been set yet,
+    // we can show a loading indicator or null
+    return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading Game...</div>;
+  }
+
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-900">
       <Header />
       
       <main className="max-w-lg mx-auto px-4 py-6">
