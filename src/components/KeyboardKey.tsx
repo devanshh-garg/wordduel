@@ -16,7 +16,7 @@ const stateToColor = {
   unused: 'bg-slate-200 dark:bg-gray-700 text-slate-800 dark:text-slate-200'
 };
 
-const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter, state = 'unused', onClick }) => {
+const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter = '', state = 'unused', onClick }) => {
   const { playKeyPress } = useSoundEffects();
   const haptics = useHapticFeedback();
 
@@ -27,7 +27,7 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter, state = 'unused', onC
   };
 
   const isSpecial = letter === 'enter' || letter === 'backspace';
-  const displayText = letter === 'backspace' ? '←' : letter.toUpperCase();
+  const displayText = letter === 'backspace' ? '←' : (letter || '').toUpperCase();
 
   return (
     <motion.button
