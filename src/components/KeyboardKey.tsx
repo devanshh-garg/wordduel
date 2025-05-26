@@ -9,10 +9,10 @@ interface KeyboardKeyProps {
 }
 
 const stateToColor = {
-  correct: 'bg-emerald-500 text-white',
-  present: 'bg-amber-500 text-white',
-  absent: 'bg-slate-500 dark:bg-gray-600 text-white',
-  unused: 'bg-slate-200 dark:bg-gray-700 text-slate-800 dark:text-slate-200'
+  correct: 'bg-emerald-500',
+  present: 'bg-amber-500',
+  absent: 'bg-slate-600/90 dark:bg-gray-600/90',
+  unused: 'bg-slate-600/70 dark:bg-gray-600/70'
 };
 
 const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter = '', state = 'unused', onClick }) => {
@@ -29,14 +29,14 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter = '', state = 'unused'
     <motion.button
       whileTap={{ scale: 0.95 }}
       className={`
-        w-[42px] h-[58px] text-lg font-medium
+        min-w-[38px] h-[52px] text-lg font-medium
         flex items-center justify-center
         rounded-lg
         transition-colors duration-200
         ${stateToColor[state]}
-        hover:opacity-90 active:opacity-100
-        focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50
-        ${letter === 'enter' || letter === 'backspace' ? 'w-[65px]' : ''}
+        text-white
+        shadow-lg shadow-black/20
+        ${letter === 'enter' || letter === 'backspace' ? 'px-3' : 'px-2'}
       `}
       onClick={handleClick}
     >
