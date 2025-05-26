@@ -23,19 +23,20 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter = '', state = 'unused'
     onClick(letter);
   };
 
-  const isSpecial = letter === 'enter' || letter === 'backspace';
   const displayText = letter === 'backspace' ? '←' : (letter || '').toUpperCase();
 
   return (
     <motion.button
       whileTap={{ scale: 0.95 }}
       className={`
-        ${isSpecial ? 'px-4 text-sm' : 'px-2 text-lg'}
-        py-4 rounded-lg font-medium
+        w-[42px] h-[58px] text-lg font-medium
+        flex items-center justify-center
+        rounded-lg
         transition-colors duration-200
         ${stateToColor[state]}
         hover:opacity-90 active:opacity-100
         focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50
+        ${letter === 'enter' || letter === 'backspace' ? 'w-[65px]' : ''}
       `}
       onClick={handleClick}
     >
