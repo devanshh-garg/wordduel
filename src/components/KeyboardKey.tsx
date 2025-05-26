@@ -11,8 +11,8 @@ interface KeyboardKeyProps {
 const stateToColor = {
   correct: 'bg-emerald-600',
   present: 'bg-amber-500',
-  absent: 'bg-gray-600',
-  unused: 'bg-gray-600/80'
+  absent: 'bg-slate-700 dark:bg-slate-500',
+  unused: 'bg-slate-600/90 dark:bg-slate-500/90'
 };
 
 const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter = '', state = 'unused', onClick }) => {
