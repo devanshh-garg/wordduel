@@ -15,7 +15,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
   onKeyPress, 
   onDelete, 
   onEnter, 
-  guesses, // Guesses is still needed to iterate through the keys
+  guesses,
   letterStates
 }) => {
   const keyStates: Record<string, LetterState> = {};
@@ -26,7 +26,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
   });
   
   // Update states based on letterStates
-  guesses.forEach(guess => { // Iterate through guesses to access corresponding letterStates
+  guesses.forEach(guess => {
     const states = letterStates[guess];
     if (states) {
       guess.toLowerCase().split('').forEach((letter, index) => {
@@ -62,7 +62,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
   };
   
   return (
-    <div className="w-full max-w-xl mx-auto mt-6">
+    <div className="w-full max-w-[500px] mx-auto mt-6 px-1 pb-4">
       {rows.map((row, index) => (
         <KeyboardRow 
           key={index} 
