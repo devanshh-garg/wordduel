@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useSoundEffects } from '../hooks/useSoundEffects';
 import { useHapticFeedback } from '../hooks/useHapticFeedback';
 
 interface KeyboardKeyProps {
@@ -17,11 +16,9 @@ const stateToColor = {
 };
 
 const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter = '', state = 'unused', onClick }) => {
-  const { playKeyPress } = useSoundEffects();
   const haptics = useHapticFeedback();
 
   const handleClick = () => {
-    playKeyPress();
     haptics.keyPress();
     onClick(letter);
   };
