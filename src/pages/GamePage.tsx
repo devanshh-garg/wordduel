@@ -107,21 +107,27 @@ const GamePage: React.FC = () => {
   };
   
   if (!decodedData) {
-    return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex flex-col">
+        <div className="flex-grow flex items-center justify-center">Loading...</div>
+        <Footer />
+      </div>
+    );
   }
   
-  // Conditionally render the game board and related components only when decodedData is available
   if (!decodedData || !gameState.word) {
-    // If decodedData is null or the word hasn't been set yet,
-    // we can show a loading indicator or null
-    return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading Game...</div>;
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex flex-col">
+        <div className="flex-grow flex items-center justify-center">Loading Game...</div>
+        <Footer />
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex flex-col">
       <Header />
-      
-      <main className="max-w-lg mx-auto px-4 py-6">
+      <main className="flex-grow max-w-lg mx-auto px-4 py-6">
         {gameState.gameStatus === 'playing' ? (
           <React.Fragment>
             <GameInstructions createdBy={decodedData?.createdBy} />
