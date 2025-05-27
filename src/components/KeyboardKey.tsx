@@ -9,10 +9,10 @@ interface KeyboardKeyProps {
 }
 
 const stateToColor = {
-  correct: 'bg-emerald-600',
-  present: 'bg-amber-500',
-  absent: 'bg-slate-800 dark:bg-slate-400',
-  unused: 'bg-slate-700/90 dark:bg-slate-400/90'
+  correct: 'bg-gradient-to-br from-emerald-500 to-emerald-700 dark:from-emerald-600 dark:to-emerald-800 text-white',
+  present: 'bg-gradient-to-br from-amber-400 to-amber-600 dark:from-amber-500 dark:to-amber-700 text-white',
+  absent: 'bg-gradient-to-br from-slate-600 to-slate-700 dark:from-gray-700 dark:to-gray-800 text-white/80',
+  unused: 'bg-gradient-to-br from-slate-200 to-slate-300 dark:from-gray-600 dark:to-gray-700 text-slate-700 dark:text-white/90'
 };
 
 const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter = '', state = 'unused', onClick }) => {
@@ -29,13 +29,14 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter = '', state = 'unused'
     <motion.button
       whileTap={{ scale: 0.95 }}
       className={`
-        min-w-[32px] h-[45px] text-base font-medium
+        min-w-[38px] h-[50px] text-base font-medium
         flex items-center justify-center
-        rounded-md
-        transition-colors duration-200
+        rounded-lg shadow-md
+        transition-all duration-200
         ${stateToColor[state]}
-        text-white
-        ${letter === 'enter' || letter === 'backspace' ? 'px-2' : 'px-1'}
+        ${letter === 'enter' || letter === 'backspace' ? 'px-3' : 'px-2'}
+        hover:brightness-110 active:brightness-90
+        border border-slate-300/10 dark:border-white/5
       `}
       onClick={handleClick}
     >

@@ -20,12 +20,10 @@ const Keyboard: React.FC<KeyboardProps> = ({
 }) => {
   const keyStates: Record<string, LetterState> = {};
 
-  // Initialize all keys as unused
   'abcdefghijklmnopqrstuvwxyz'.split('').forEach(letter => {
     keyStates[letter] = 'unused';
   });
   
-  // Update states based on letterStates
   guesses.forEach(guess => {
     const states = letterStates[guess];
     if (states) {
@@ -33,7 +31,6 @@ const Keyboard: React.FC<KeyboardProps> = ({
         const currentState = keyStates[letter];
         const newState = states[index];
         
-        // Update state based on priority: correct > present > absent > unused
         if (newState === 'correct') {
           keyStates[letter] = 'correct';
         } else if (newState === 'present' && currentState !== 'correct') {
@@ -62,7 +59,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
   };
   
   return (
-    <div className="w-full max-w-[480px] mx-auto mt-4 px-1 pb-2">
+    <div className="w-full max-w-[600px] mx-auto mt-8 px-4 pb-6">
       {rows.map((row, index) => (
         <KeyboardRow 
           key={index} 

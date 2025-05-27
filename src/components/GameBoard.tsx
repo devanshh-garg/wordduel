@@ -13,7 +13,6 @@ const GameBoard: React.FC<GameBoardProps> = ({ gameState, letterStates }) => {
   const { guesses, currentGuess } = gameState;
   const haptics = useHapticFeedback();
   
-  // Handle win/lose effects
   useEffect(() => {
     if (gameState.gameStatus === 'won') {
       haptics.gameWon();
@@ -21,7 +20,6 @@ const GameBoard: React.FC<GameBoardProps> = ({ gameState, letterStates }) => {
     }
   }, [gameState.gameStatus, haptics]);
 
-  // Handle guess submission effects
   useEffect(() => {
     if (guesses.length > 0) {
       const lastGuess = guesses[guesses.length - 1];
@@ -40,18 +38,16 @@ const GameBoard: React.FC<GameBoardProps> = ({ gameState, letterStates }) => {
 
   const allRows = [...guesses];
   
-  // If we're still playing, add the current guess
   if (gameState.gameStatus === 'playing' && allRows.length < 6) {
     allRows.push(currentGuess);
   }
   
-  // Fill with empty rows if needed
   while (allRows.length < 6) {
     allRows.push('');
   }
   
   return (
-    <div className="grid gap-[6px] w-full max-w-[330px] mx-auto px-1">
+    <div className="grid gap-[8px] w-full max-w-[380px] mx-auto px-4 py-8">
       {allRows.map((guess, index) => {
         const isCurrentGuess = index === guesses.length && gameState.gameStatus === 'playing';
         const isSubmittedGuess = index < guesses.length;

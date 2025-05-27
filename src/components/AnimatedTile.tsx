@@ -8,11 +8,11 @@ interface AnimatedTileProps {
 }
 
 const stateToColor = {
-  empty: 'bg-slate-700/50 dark:bg-gray-700/50',
-  tbd: 'bg-slate-600/50 dark:bg-gray-600/50',
-  correct: 'bg-emerald-500',
-  present: 'bg-amber-500',
-  absent: 'bg-slate-500 dark:bg-gray-600'
+  empty: 'bg-gradient-to-br from-slate-100 to-slate-200 dark:from-gray-700 dark:to-gray-800 shadow-inner',
+  tbd: 'bg-gradient-to-br from-slate-200 to-slate-300 dark:from-gray-600 dark:to-gray-700',
+  correct: 'bg-gradient-to-br from-emerald-400 to-emerald-600 dark:from-emerald-500 dark:to-emerald-700',
+  present: 'bg-gradient-to-br from-amber-400 to-amber-500 dark:from-amber-500 dark:to-amber-600',
+  absent: 'bg-gradient-to-br from-slate-400 to-slate-500 dark:from-gray-600 dark:to-gray-700'
 };
 
 const AnimatedTile: React.FC<AnimatedTileProps> = ({ letter, state, delay = 0 }) => {
@@ -46,8 +46,9 @@ const AnimatedTile: React.FC<AnimatedTileProps> = ({ letter, state, delay = 0 })
         font-bold text-3xl rounded-xl
         transform transition-colors duration-500
         ${stateToColor[state]}
-        ${state !== 'empty' ? 'text-white' : 'text-white/80'}
-        border-2 border-slate-600/20 dark:border-gray-600/20
+        ${state === 'empty' ? 'text-slate-400 dark:text-gray-500' : 'text-white'}
+        border-2 ${state === 'empty' ? 'border-slate-300 dark:border-gray-600' : 'border-transparent'}
+        shadow-lg
       `}
     >
       {letter.toUpperCase()}
@@ -55,4 +56,4 @@ const AnimatedTile: React.FC<AnimatedTileProps> = ({ letter, state, delay = 0 })
   );
 };
 
-export default AnimatedTile; 
+export default AnimatedTile;

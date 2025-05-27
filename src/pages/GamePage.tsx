@@ -20,8 +20,6 @@ const GamePage: React.FC = () => {
       navigate('/');
       return;
     }
-    
-    console.log('Encoded Word:', encodedWord);
 
     try {
       const data = decodeWord(encodedWord);
@@ -37,9 +35,8 @@ const GamePage: React.FC = () => {
     removeLetter, 
     submitGuess, 
     letterStates,
- error 
+    error 
   } = useGameState(
-    // Only initialize useGameState when decodedData is available
     decodedData?.word || '',
     decodedData?.createdBy
   );
@@ -71,10 +68,8 @@ const GamePage: React.FC = () => {
     const { gameStatus, guesses, word } = gameState;
     const baseText = `WordDuel Challenge${gameStatus === 'won' ? ` solved in ${guesses.length}/6` : ': Failed'}`;
     
-    // Find the longest word length for padding
     const maxLength = Math.max(...guesses.map(g => g.length));
     
-    // Create combined text with both words and emoji grid, using padding for alignment
     const guessesWithEmoji = guesses.map(guess => {
       const states = letterStates[guess];
       const emojis = states.map(state => {
@@ -82,9 +77,8 @@ const GamePage: React.FC = () => {
         if (state === 'present') return '🟨';
         return '⬜';
       }).join('');
-      // Pad the word with spaces to align emojis
       const paddedWord = guess.toUpperCase().padEnd(maxLength, ' ');
-      return `${paddedWord}  ${emojis}`; // Two spaces between word and emojis for clean separation
+      return `${paddedWord}  ${emojis}`;
     }).join('\n');
     
     const shareText = `${baseText}\n\n${guessesWithEmoji}\n\n${gameStatus === 'lost' ? `Word was: ${word.toUpperCase()}\n\n` : ''}Create your own: ${window.location.origin}`;
@@ -94,12 +88,10 @@ const GamePage: React.FC = () => {
         title: 'WordDuel Challenge',
         text: shareText,
       }).catch(() => {
-        // Fallback to clipboard if sharing fails
         navigator.clipboard.writeText(shareText);
         setShowLink(true);
       });
     } else {
-      // Fallback for browsers without Web Share API
       navigator.clipboard.writeText(shareText);
       setShowLink(true);
     }
@@ -107,49 +99,42 @@ const GamePage: React.FC = () => {
   
   if (!decodedData) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
-  
-  if (!decodedData || !gameState.word) {
-    return (
-      <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex items-center justify-center">
-        Loading Game...
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
+        <div className="animate-pulse text-slate-600 dark:text-slate-300">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-gray-900 dark:to-gray-800">
       <Header />
-      <main className="max-w-lg mx-auto px-4 py-6">
+      <main className="max-w-2xl mx-auto px-4 py-6">
         {gameState.gameStatus === 'playing' ? (
-          <React.Fragment>
+          <div className="space-y-6">
             <GameInstructions createdBy={decodedData?.createdBy} />
-            <GameBoard gameState={gameState} letterStates={letterStates} />
-            {error && (
-              <p className="text-center text-red-600 text-sm mt-4 animate-fade-in">
-                {error}
-              </p>
-            )}
-            <Keyboard 
-              onKeyPress={handleKeyPress}
-              onDelete={removeLetter}
-              onEnter={submitGuess}
-              guesses={gameState.guesses}
-              letterStates={letterStates}
-              targetWord={gameState.word}
-            />
+            <div className="flex flex-col items-center">
+              <GameBoard gameState={gameState} letterStates={letterStates} />
+              {error && (
+                <p className="text-center text-red-600 dark:text-red-400 text-sm mt-4 animate-fade-in bg-red-50 dark:bg-red-900/20 px-4 py-2 rounded-lg">
+                  {error}
+                </p>
+              )}
+              <Keyboard 
+                onKeyPress={handleKeyPress}
+                onDelete={removeLetter}
+                onEnter={submitGuess}
+                guesses={gameState.guesses}
+                letterStates={letterStates}
+              />
+            </div>
             
             {showLink && (
-              <div className="mt-6">
-                <p className="text-sm text-slate-600 mb-1">Link copied! Share this URL:</p>
+              <div className="mt-8 max-w-md mx-auto">
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">Link copied! Share this URL:</p>
                 <CopyLink url={window.location.href} />
               </div>
             )}
-          </React.Fragment>
+          </div>
         ) : (
          <GameResults gameState={gameState} onShareClick={handleShare} createdBy={decodedData?.createdBy} />
         )}
