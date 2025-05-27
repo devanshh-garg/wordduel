@@ -59,7 +59,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
   };
   
   return (
-    <div className="w-full max-w-[600px] mx-auto mt-8 px-4 pb-6">
+    <div className="w-full max-w-[500px] mx-auto mt-6 px-1 sm:px-4 pb-4">
       {rows.map((row, index) => (
         <KeyboardRow 
           key={index} 

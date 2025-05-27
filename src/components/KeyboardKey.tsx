@@ -24,17 +24,18 @@ const KeyboardKey: React.FC<KeyboardKeyProps> = ({ letter = '', state = 'unused'
   };
 
   const displayText = letter === 'backspace' ? '←' : (letter || '').toUpperCase();
+  const isSpecialKey = letter === 'enter' || letter === 'backspace';
 
   return (
     <motion.button
       whileTap={{ scale: 0.95 }}
       className={`
-        min-w-[38px] h-[50px] text-base font-medium
+        h-[45px] text-base font-medium
         flex items-center justify-center
         rounded-lg shadow-md
         transition-all duration-200
         ${stateToColor[state]}
-        ${letter === 'enter' || letter === 'backspace' ? 'px-3' : 'px-2'}
+        ${isSpecialKey ? 'px-2 text-sm min-w-[50px] sm:min-w-[65px]' : 'w-[32px] sm:w-[38px]'}
         hover:brightness-110 active:brightness-90
         border border-slate-300/10 dark:border-white/5
       `}
